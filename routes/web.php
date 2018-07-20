@@ -38,3 +38,6 @@ Route::get('/checkuser/{shopuser}','ShopUserController@check')->name('checkuser'
 Route::get('login', 'SessionController@login')->name('login');
 Route::post('login', 'SessionController@store')->name('login');
 Route::delete('logout', 'SessionController@logout')->name('logout');
+
+//活动管理
+Route::resource('/Activitys',' ActivityController');
