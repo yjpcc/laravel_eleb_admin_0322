@@ -3,7 +3,7 @@
     <ol class="breadcrumb">
         <li>添加商户账号</li>
     </ol>
-    <h1>添加商户账号</h1>
+    <h1 class="text-center">添加商户账号</h1>
     @include('_errors')
 <form class="form-horizontal" method="post" action="{{ route('shopusers.store') }}" enctype="multipart/form-data">
     <div class="form-group">

@@ -20,7 +20,7 @@
                 <td>{{ $shop->shop_name }}</td>
                 <td><img src="{{ $shop->shop_img }}" alt="" width="50"></td>
                 <td>
-                    <span class="btn-sm {{ $shop->status==-1?'btn-danger':($shop->status?'btn-success':'btn-warning') }}">{{ $shop->status==-1?'禁用':($shop->status?'审核':'未审核') }}</span>
+                    <span class="btn-sm {{ $shop->status==-1?'btn-danger':($shop->status?'btn-success':'btn-warning') }}">{{ $shop->status==-1?'禁用':($shop->status?'正常':'未审核') }}</span>
                 </td>
                 <td>
                     <a class="btn btn-success" href="{{ route('shops.show',[$shop]) }}" title="查看"><span class="glyphicon glyphicon-eye-open"></span></a> <a class="btn btn-warning" href="{{ route('shops.edit',[$shop]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> <form action="{{ route('shops.destroy',[$shop]) }}" method="post" style="display: inline">

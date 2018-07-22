@@ -31,11 +31,11 @@
                 </td>
             </tr>
         @endforeach
-        {{--<tr>--}}
-            {{--<td colspan="6">--}}
-                {{--<a href="{{ route('shopusers.create') }}" class="btn btn-success btn-block">添加</a>--}}
-            {{--</td>--}}
-        {{--</tr>--}}
+        <tr>
+            <td colspan="6">
+                <a href="{{ route('shopusers.create') }}" class="btn btn-success btn-block">添加</a>
+            </td>
+        </tr>
     </table>
     {{ $shopusers->links() }}
 @endsection

@@ -98,7 +98,6 @@
                 location.href="{{ route('admins.index') }}";
             }
         });
-
     })
 </script>
 @endauth

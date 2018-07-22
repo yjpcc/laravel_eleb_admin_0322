@@ -78,14 +78,14 @@ class AdminController extends Controller
         $this->validate($request, [
             'name' =>['required',Rule::unique('admins')->ignore($admin->id)],
             'email' =>['required',Rule::unique('admins')->ignore($admin->id)],
-            'captcha' => 'required|captcha',
+//            'captcha' => 'required|captcha',
         ], [
             'name.required' => '用户名不能为空',
             'name.unique' => '用户名已存在',
             'email.required' => '邮箱不能为空',
             'email.unique' => '邮箱不能重复',
-            'captcha.required' => '验证码不能为空',
-            'captcha.captcha' => '验证码错误',
+//            'captcha.required' => '验证码不能为空',
+//            'captcha.captcha' => '验证码错误',
         ]);
 
 

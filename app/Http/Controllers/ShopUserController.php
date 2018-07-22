@@ -26,36 +26,36 @@ class ShopUserController extends Controller
         return view('shopuser/show', compact('shopuser'));
     }
 
-//    public function create()
-//    {
-//        $rows=ShopUser::all();
-//        return view('shopuser/create',compact('rows'));
-//    }
-//
-//    public function store(Request $request)
-//    {
-//        $this->validate($request, [
-//            'name' => 'required',
-//            'email' => 'required|email|unique:shop_users',
-//            'password'=>'required|confirmed',
-//            'captcha' => 'required|captcha',
-//        ], [
-//            'name.required' => '名字不能为空',
-//            'email.required' => '邮箱不能为空',
-//            'email.email' => '邮箱格式错误',
-//            'email.unique' => '邮箱不能重复',
-//            'password.required'=>'密码不能为空',
-//            'password.confirmed'=>'两次输入的密码不一致',
-//            'captcha.required' => '验证码不能为空',
-//            'captcha.captcha' => '验证码错误',
-//        ]);
-//        $data = $request->all();
-//        if(!$request->status){
-//            $data['status']=0;
-//        }
-//        ShopUser::create($data);
-//        return redirect()->route('shopusers.index')->with("success", "添加成功");
-//    }
+    public function create()
+    {
+        $rows=ShopUser::all();
+        return view('shopuser/create',compact('rows'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:shop_users',
+            'password'=>'required|confirmed',
+            'captcha' => 'required|captcha',
+        ], [
+            'name.required' => '名字不能为空',
+            'email.required' => '邮箱不能为空',
+            'email.email' => '邮箱格式错误',
+            'email.unique' => '邮箱不能重复',
+            'password.required'=>'密码不能为空',
+            'password.confirmed'=>'两次输入的密码不一致',
+            'captcha.required' => '验证码不能为空',
+            'captcha.captcha' => '验证码错误',
+        ]);
+        $data = $request->all();
+        if(!$request->status){
+            $data['status']=0;
+        }
+        ShopUser::create($data);
+        return redirect()->route('shopusers.index')->with("success", "添加成功");
+    }
 
     public function edit(ShopUser $shopuser)
     {
@@ -70,15 +70,15 @@ class ShopUserController extends Controller
             'name' =>['required',Rule::unique('shop_users')->ignore($shopuser->id)],
             'email' =>['required',Rule::unique('shop_users')->ignore($shopuser->id)],
             'password'=>'confirmed',
-            'captcha' => 'required|captcha',
+//            'captcha' => 'required|captcha',
         ], [
             'name.required' => '名字不能为空',
             'name.unique' => '名字已存在',
             'email.required' => '邮箱不能为空',
             'email.unique' => '邮箱不能重复',
             'password.confirmed'=>'两次输入的密码不一致',
-            'captcha.required' => '验证码不能为空',
-            'captcha.captcha' => '验证码错误',
+//            'captcha.required' => '验证码不能为空',
+//            'captcha.captcha' => '验证码错误',
         ]);
 
         $data=[

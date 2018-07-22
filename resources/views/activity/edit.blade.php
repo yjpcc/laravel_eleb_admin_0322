@@ -1,43 +1,49 @@
 @extends("default")
 @section("content")
+    @include('vendor.ueditor.assets')
     <ol class="breadcrumb">
-        <li>修改分类</li>
+        <li>修改活动</li>
     </ol>
-    <h1 class="text-center">修改分类</h1>
+    <h1 class="text-center">修改活动</h1>
     @include('_errors')
-<form class="form-horizontal" method="post" action="{{ route('menucategorys.update',[$menucategory]) }}" enctype="multipart/form-data">
+<form class="form-horizontal" method="post" action="{{ route('activitys.update',[$activity]) }}" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="inputTitle1" class="col-sm-2 control-label">分类名</label>
+        <label for="inputTitle1" class="col-sm-2 control-label">活动名称</label>
         <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="inputTitle1" placeholder="分类名" value="{{ $menucategory->name }}">
+            <input type="text" name="title" class="form-control" id="inputTitle1" placeholder="活动名称" value="{{ $activity->title }}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">是否是默认分类</label>
+        <label for="inputTitle1" class="col-sm-2 control-label">开始时间</label>
         <div class="col-sm-10">
-            <input type="checkbox" name="is_selected" value="1" class="checkbox" {{ $menucategory->is_selected?'checked':'' }}>
+            <input type="datetime-local" name="start_time" class="form-control" placeholder="开始时间" value="{{ date('Y-m-d\TH:i:s',strtotime($activity->start_time)) }}">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="inputTitle1" class="col-sm-2 control-label">结束时间</label>
+        <div class="col-sm-10">
+            <input type="datetime-local" name="end_time" class="form-control" placeholder="结束时间" value="{{ date('Y-m-d\TH:i:s',strtotime($activity->end_time)) }}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">描述</label>
+        <label class="col-sm-2 control-label">活动详情</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="des" rows="3" placeholder="描述">{{ $menucategory->des }}</textarea>
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+                var ue = UE.getEditor('container');
+                ue.ready(function() {
+                    ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+                });
+            </script>
+
+            <!-- 编辑器容器 -->
+            <script id="container" name="content" type="text/plain">{!! $activity->content !!}</script>
         </div>
     </div>
-
-    {{--<div class="form-group">--}}
-        {{--<label class="col-sm-2 control-label">验证码</label>--}}
-        {{--<div class="col-sm-10">--}}
-            {{--<div class="col-sm-3">--}}
-                {{--<input id="captcha" class="form-control" name="captcha"  placeholder="请输入验证码">--}}
-            {{--</div>--}}
-            {{--<div class="col-sm-9">--}}
-                {{--<img class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
 
     {{ csrf_field() }}
     {{ method_field('PATCH') }}

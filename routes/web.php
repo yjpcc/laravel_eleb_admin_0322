@@ -11,11 +11,12 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::redirect('/','login');
+//Route::redirect('/','login');
+
 //商家分类
 Route::resource('/shopcategorys','ShopCategoryController');
 
@@ -40,4 +41,16 @@ Route::post('login', 'SessionController@store')->name('login');
 Route::delete('logout', 'SessionController@logout')->name('logout');
 
 //活动管理
-Route::resource('/Activitys',' ActivityController');
+Route::resource('/activitys','ActivityController');
+
+//会员管理
+Route::resource('/members','MemberController');
+
+//抽奖活动管理
+Route::resource('/events','EventController');
+
+//抽奖活动奖品管理
+Route::resource('/eventprizes','EventPrizeController');
+
+//活动报名管理
+Route::resource('/eventmembers','EventMemberController');

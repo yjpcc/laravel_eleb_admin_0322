@@ -1,29 +1,47 @@
 @extends("default")
 @section("content")
+    @include('vendor.ueditor.assets')
     <ol class="breadcrumb">
-        <li>添加分类</li>
+        <li>添加活动</li>
     </ol>
-    <h1 class="text-center">添加分类</h1>
+    <h1 class="text-center">添加活动</h1>
     @include('_errors')
-<form class="form-horizontal" method="post" action="{{ route('menucategorys.store') }}" enctype="multipart/form-data">
+<form class="form-horizontal" method="post" action="{{ route('activitys.store') }}" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="inputTitle1" class="col-sm-2 control-label">分类名</label>
+        <label for="inputTitle1" class="col-sm-2 control-label">活动名称</label>
         <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="inputTitle1" placeholder="分类名" value="{{ old('name') }}">
+            <input type="text" name="title" class="form-control" id="inputTitle1" placeholder="活动名称" value="{{ old('title') }}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">是否是默认分类</label>
+        <label for="inputTitle1" class="col-sm-2 control-label">开始时间</label>
         <div class="col-sm-10">
-            <input type="checkbox" name="is_selected" value="1" class="checkbox">
+            <input type="datetime-local" name="start_time" class="form-control" placeholder="开始时间" value="{{ old('start_time') }}">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="inputTitle1" class="col-sm-2 control-label">结束时间</label>
+        <div class="col-sm-10">
+            <input type="datetime-local" name="end_time" class="form-control" placeholder="结束时间" value="{{ old('end_time') }}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">描述</label>
+        <label class="col-sm-2 control-label">活动详情</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="des" rows="3" placeholder="描述">{{ old('des') }}</textarea>
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+                var ue = UE.getEditor('container');
+                ue.ready(function() {
+                    ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+                });
+            </script>
+
+            <!-- 编辑器容器 -->
+            <script id="container" name="content" type="text/plain">{!! old('content') !!}</script>
         </div>
     </div>
 

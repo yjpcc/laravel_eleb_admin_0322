@@ -25,17 +25,28 @@
                         {{--<li><a href="">商品列表</a></li>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
-                <li><a href="{{ route('shops.index') }}">商家管理</a></li>
-                <li><a href="{{ route('shopusers.index') }}">商户账号管理</a></li>
-                <li><a href="{{ route('shopcategorys.index') }}">商家分类</a></li>
+                {{--<li><a href="{{ route('shops.index') }}">商家管理</a></li>--}}
+                {{--<li><a href="{{ route('shopusers.index') }}">商户账号管理</a></li>--}}
+                {{--<li><a href="{{ route('shopcategorys.index') }}">商家分类</a></li>--}}
+                <li><a href="{{ route('members.index') }}">会员管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('shops.index') }}">商家列表</a></li>
+                        <li><a href="{{ route('shopusers.index') }}">商户账号列表</a></li>
+                        <li><a href="{{ route('shopcategorys.index') }}">商家分类列表</a></li>
+                    </ul>
+                </li>
                 <li><a href="{{ route('admins.index') }}">平台账号管理</a></li>
-                {{--<li class="dropdown">--}}
-                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="--}}
-{{--glyphicon glyphicon-user"></span> 用户 <span class="caret"></span></a>--}}
-                    {{--<ul class="dropdown-menu">--}}
-                        {{--<li><a href="{{ route('users.index') }}">用户列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+                <li><a href="{{ route('activitys.index') }}">活动管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">抽奖管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('events.index') }}">抽奖活动列表</a></li>
+                        <li><a href="{{ route('eventprizes.index') }}">抽奖奖品管理</a></li>
+                        <li><a href="{{ route('eventmembers.index') }}">活动报名列表</a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">

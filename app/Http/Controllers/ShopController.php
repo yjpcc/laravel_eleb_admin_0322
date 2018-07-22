@@ -115,14 +115,14 @@ class ShopController extends Controller
             'shop_category_id'=>'required',
             'start_send'=>'required',
             'send_cost'=>'required',
-            'captcha' => 'required|captcha',
+//            'captcha' => 'required|captcha',
         ], [
             'shop_name.required' => '店铺名称不能为空',
             'shop_category_id.required' => '店铺分类不能为空',
             'start_send.required' => '起送金额不能为空',
             'send_cost.required' => '配送费不能为空',
-            'captcha.required' => '验证码不能为空',
-            'captcha.captcha' => '验证码错误',
+//            'captcha.required' => '验证码不能为空',
+//            'captcha.captcha' => '验证码错误',
         ]);
 
         $data=[
