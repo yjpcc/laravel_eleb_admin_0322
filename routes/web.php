@@ -54,3 +54,10 @@ Route::resource('/eventprizes','EventPrizeController');
 
 //活动报名管理
 Route::resource('/eventmembers','EventMemberController');
+
+//图片上传
+Route::post('upload',function (){
+    $storage=\Illuminate\Support\Facades\Storage::disk('oss');
+    $fileName=$storage->putFile('upload',request()->file('file'));
+    return ['fileName'=>$storage->url($fileName)];
+})->name('upload');

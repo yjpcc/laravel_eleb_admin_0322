@@ -39,7 +39,13 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">头像</label>
         <div class="col-sm-10">
-            <input type="file" name="icon">
+            <input type="hidden" id="img_url" name="icon">
+            <div id="uploader-demo">
+                <!--用来存放item-->
+                <div id="fileList" class="uploader-list"></div>
+                <div id="filePicker">选择图片</div>
+            </div>
+            <img id="img" alt="">
         </div>
     </div>
 
@@ -64,4 +70,8 @@
         </div>
     </div>
 </form>
+
 @endsection
+@section('js_upload')
+    @include('upload')
+@stop

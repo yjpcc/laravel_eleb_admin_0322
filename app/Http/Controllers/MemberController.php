@@ -53,12 +53,6 @@ class MemberController extends Controller
         $data['password']=bcrypt($request->password);
 
         $data = $request->all();
-        if ($request->members_img) {
-            $result=$request->members_img->store('public/members_img');
-            if ($result) {
-                $data['members_img'] = url(Storage::url($result));
-            }
-        }
 
         Member::create($data);
 
@@ -91,12 +85,6 @@ class MemberController extends Controller
 
 
         $data = $request->all();
-        if ($request->members_img) {
-            $result=$request->members_img->store('public/members_img');
-            if ($result) {
-                $data['members_img'] = url(Storage::url($result));
-            }
-        }
         $member->update($data);
 
         return redirect()->route('members.index')->with("success", "修改成功");

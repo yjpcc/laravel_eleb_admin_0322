@@ -53,13 +53,6 @@ class AdminController extends Controller
         $data = $request->all();
         $data['password']=bcrypt($request->password);
 
-        if ($request->icon) {
-            $result=$request->icon->store('public/icon');
-            if ($result) {
-                $data['icon'] = url(Storage::url($result));
-            }
-        }
-
         Admin::create($data);
 
         return redirect()->route('admins.index')->with("success", "添加成功");
@@ -88,14 +81,8 @@ class AdminController extends Controller
 //            'captcha.captcha' => '验证码错误',
         ]);
 
-
         $data = $request->all();
-        if ($request->icon) {
-            $result=$request->icon->store('public/icon');
-            if ($result) {
-                $data['icon'] = url(Storage::url($result));
-            }
-        }
+
         $admin->update($data);
 
         return redirect()->route('admins.index')->with("success", "修改成功");
@@ -117,15 +104,7 @@ class AdminController extends Controller
             'name.unique' => '用户名已存在',
         ]);
 
-        $data = [
-            'name'=>$request->name,
-        ];
-        if ($request->icon) {
-            $result=$request->icon->store('public/icon');
-            if ($result) {
-                $data['icon'] = url(Storage::url($result));
-            }
-        }
+        $data =$request->all();
         $admin->update($data);
         return redirect()->route('admins.show',[$admin])->with("success", "修改成功");
     }

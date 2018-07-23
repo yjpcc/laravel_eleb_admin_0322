@@ -82,13 +82,6 @@
         }
     });
 
-
-    $("#btn1").click(function () {
-        $(".name").html('<input type="text" name="name" placeholder="用户名" value="{{ auth()->user()->name }}">');
-        $(".icon").html('<input type="file" name="icon">');
-        $(".submit").html('<button class="btn btn-info" type="submit">修改</button>')
-    });
-
     $("#logout").click(function () {
         $.ajax({
             url:"{{ route('logout') }}",
@@ -101,6 +94,6 @@
     })
 </script>
 @endauth
-
+@yield('js_upload')
 </body>
 </html>

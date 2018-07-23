@@ -18,7 +18,7 @@ class CreateMenuCategoriesTable extends Migration
             $table->string('name')->comment('名称');
             $table->string('type_accumulation')->comment('名称');
             $table->integer('shop_id')->comment('所属商家ID');
-            $table->string('des')->comment('描述');
+            $table->string('description')->comment('描述');
             $table->boolean('is_selected')->comment('是否是默认分类');
             $table->timestamps();
             $table->engine = 'InnoDB';

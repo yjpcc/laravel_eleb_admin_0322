@@ -20,7 +20,7 @@ class CreateMenusTable extends Migration
             $table->integer('shop_id')->comment('所属商家ID');
             $table->integer('category_id')->comment('所属分类ID');
             $table->decimal('goods_price')->comment('价格');
-            $table->string('des')->comment('描述');
+            $table->string('description')->comment('描述');
             $table->integer('month_sales')->default(0)->comment('月销量');
             $table->integer('rating_count')->default(0)->comment('评分数量');
             $table->string('tips')->comment('提示信息');

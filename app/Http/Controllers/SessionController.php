@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
+
+//    public function __construct()
+//    {
+//        $this->middleware('auth', [
+//            'except' => ['logout']
+//        ]);
+//
+//        $this->middleware('guest', [
+//            'only' => ['login','store']
+//        ]);
+//    }
+
     public function login(){
         return view('session/login');
     }

@@ -45,12 +45,6 @@ class ShopCategoryController extends Controller
         if(!$request->status){
             $data['status']=0;
         }
-        if ($request->img) {
-            $result=$request->img->store('public/img');
-            if ($result) {
-                $data['img'] = url(Storage::url($result));
-            }
-        }
         ShopCategory::create($data);
         session()->flash("success", "添加成功");
         return redirect()->route('shopcategorys.index');
@@ -77,12 +71,7 @@ class ShopCategoryController extends Controller
         ]);
 
         $data = $request->all();
-        if ($request->img) {
-            $result=$request->img->store('public/img');
-            if ($result) {
-                $data['img'] = url(Storage::url($result));
-            }
-        }
+
         $shopcategory->update($data);
         session()->flash("success", "修改成功");
         return redirect()->route('shopcategorys.index');
