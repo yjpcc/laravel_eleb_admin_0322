@@ -14,10 +14,15 @@ class MemberController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $members=Member::paginate(5);
-        return view('member/index',compact('members'));
+        $keywords=$request->keywords;
+        if($keywords){
+            $members=Member::where('username','like',"%{$keywords}%")->paginate(5);
+        }else{
+            $members=Member::paginate(5);
+        }
+        return view('member/index',compact('members','keywords'));
     }
 
     public function show(Member $member){
@@ -51,8 +56,6 @@ class MemberController extends Controller
 
         $data = $request->all();
         $data['password']=bcrypt($request->password);
-
-        $data = $request->all();
 
         Member::create($data);
 
@@ -93,7 +96,12 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //$this->authorize('update',$member);
-        $member->delete();
+        $member->update(['status'=>-1]);
         return redirect()->route('members.index')->with("success", "删除成功");
+    }
+
+    public function check(Member $member){
+        $member->update(['status'=>!$member->status]);
+        return redirect()->route('members.index')->with("success", "账号 ".$member->name." 审核成功");
     }
 }

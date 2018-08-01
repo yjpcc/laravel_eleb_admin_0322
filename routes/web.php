@@ -45,6 +45,7 @@ Route::resource('/activitys','ActivityController');
 
 //会员管理
 Route::resource('/members','MemberController');
+Route::get('/checkMember/{member}','MemberController@check')->name('checkMember');
 
 //抽奖活动管理
 Route::resource('/events','EventController');
@@ -61,3 +62,19 @@ Route::post('upload',function (){
     $fileName=$storage->putFile('upload',request()->file('file'));
     return ['fileName'=>$storage->url($fileName)];
 })->name('upload');
+
+//统计
+Route::get('/orders/count','OrderController@count')->name('orders.count');
+//按天统计
+Route::get('/orders/day','OrderController@day')->name('orders.day');
+//按月统计
+Route::get('/orders/month','OrderController@month')->name('orders.month');
+//商家菜品销量统计
+Route::get('/orders/orderMenu','OrderController@orderMenu')->name('orders.orderMenu');
+Route::get('/orders/dayMenu','OrderController@dayMenu')->name('orders.dayMenu');
+Route::get('/orders/monthMenu','OrderController@monthMenu')->name('orders.monthMenu');
+
+//权限管理
+Route::resource('/permissions','PermissionController');
+//角色管理
+Route::resource('/roles','RoleController');

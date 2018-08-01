@@ -30,11 +30,25 @@
                 {{--<li><a href="{{ route('shopcategorys.index') }}">商家分类</a></li>--}}
                 <li><a href="{{ route('members.index') }}">会员管理</a></li>
                 <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家统计 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a href="{{ route('orders.count') }}">订单统计</a></li>
+                <li><a href="">菜品销量</a></li>
+                </ul>
+                </li>
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('shops.index') }}">商家列表</a></li>
                         <li><a href="{{ route('shopusers.index') }}">商户账号列表</a></li>
                         <li><a href="{{ route('shopcategorys.index') }}">商家分类列表</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RBAC <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('permissions.index') }}">权限列表</a></li>
+                        <li><a href="{{ route('roles.index') }}">角色列表</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('admins.index') }}">平台账号管理</a></li>
@@ -48,12 +62,6 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" name="keywords" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
             @endauth
             <ul class="nav navbar-nav navbar-right">
                 @guest

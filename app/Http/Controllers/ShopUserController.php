@@ -106,7 +106,5 @@ class ShopUserController extends Controller
     public function check(ShopUser $shopuser){
             $shopuser->update(['status'=>!$shopuser->status]);
             return redirect()->route('shopusers.index')->with("success", "账号 ".$shopuser->name." 审核成功");
-
-
     }
 }

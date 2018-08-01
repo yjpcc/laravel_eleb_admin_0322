@@ -23,19 +23,26 @@
                     <a href="{{ route('checkuser',[$shopuser]) }}" class="btn-sm {{ $shopuser->status?'btn-success':'btn-danger' }}">{{ $shopuser->status?'启用':'禁用' }}</a>
                 </td>
                 <td>
-                    <a class="btn btn-warning" href="{{ route('shopusers.edit',[$shopuser]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> <form action="{{ route('shopusers.destroy',[$shopuser]) }}" method="post" style="display: inline">
+                    @can('shopuser-show')
+                    <a class="btn btn-warning" href="{{ route('shopusers.edit',[$shopuser]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a>
+                     @endcan
+                    @can('shopuser-del')
+                        <form action="{{ route('shopusers.destroy',[$shopuser]) }}" method="post" style="display: inline">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
                     </form>
+                     @endcan
                 </td>
             </tr>
         @endforeach
+        @can('shopuser-create')
         <tr>
             <td colspan="6">
                 <a href="{{ route('shopusers.create') }}" class="btn btn-success btn-block">添加</a>
             </td>
         </tr>
+          @endcan
     </table>
     {{ $shopusers->links() }}
 @endsection

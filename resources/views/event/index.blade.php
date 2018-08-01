@@ -44,19 +44,26 @@
                 <td>{{ $event->signup_num }}</td>
                 <td><sapn  class="btn-sm {{ $event->is_prize?'btn-waring':'btn-success' }}">{{ $event->is_prize?'已开奖':'未开奖' }}</sapn></td>
                 <td>
+                    @can('event-show')
                     <a class="btn btn-success" href="{{ route('events.show',[$event]) }}" title="查看"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    @endcan
+                    @can('event-edit')
                     <a class="btn btn-warning" href="{{ route('events.edit',[$event]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> <form action="{{ route('events.destroy',[$event]) }}" method="post" style="display: inline">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
-                    </form></td>
+                    </form>
+                    @endcan
+                </td>
             </tr>
         @endforeach
+        @can('event-create')
         <tr>
             <td colspan="8">
                 <a href="{{ route('events.create') }}" class="btn btn-success btn-block">添加活动</a>
             </td>
         </tr>
+        @endcan
     </table>
     {{ $events->appends(['status' => $status])->links() }}
 @endsection

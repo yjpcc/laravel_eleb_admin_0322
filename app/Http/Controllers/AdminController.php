@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,8 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('admin/create');
+        $roles=Role::all();
+        return view('admin/create',compact('roles'));
     }
 
     public function store(Request $request)
@@ -53,37 +55,41 @@ class AdminController extends Controller
         $data = $request->all();
         $data['password']=bcrypt($request->password);
 
-        Admin::create($data);
-
+        $admin=Admin::create($data);
+        if($request->role){
+            $admin->assignRole($request->role);
+        }
         return redirect()->route('admins.index')->with("success", "添加成功");
     }
 
     public function edit(Admin $admin)
     {
-       // $this->authorize('update',$admin);
-        return view('admin.edit', compact('admin'));
+        $roles=Role::all();
+        return view('admin.edit', compact('admin','roles'));
     }
 
     public function update(Request $request, Admin $admin)
     {
-
-       // $this->authorize('update',$admin);
         $this->validate($request, [
             'name' =>['required',Rule::unique('admins')->ignore($admin->id)],
             'email' =>['required',Rule::unique('admins')->ignore($admin->id)],
-//            'captcha' => 'required|captcha',
         ], [
             'name.required' => '用户名不能为空',
             'name.unique' => '用户名已存在',
             'email.required' => '邮箱不能为空',
             'email.unique' => '邮箱不能重复',
-//            'captcha.required' => '验证码不能为空',
-//            'captcha.captcha' => '验证码错误',
         ]);
 
-        $data = $request->all();
 
+        $data = $request->all();
+        if(!$request->icon){
+           unset($data['icon']);
+        }
         $admin->update($data);
+
+        if($request->role){
+            $admin->syncRoles($request->role);
+        }
 
         return redirect()->route('admins.index')->with("success", "修改成功");
     }

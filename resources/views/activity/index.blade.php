@@ -42,17 +42,29 @@
                 <td>{{ $activity->start_time }}</td>
                 <td>{{ $activity->end_time }}</td>
                 <td>
+                    @can('activity-show')
                     <a class="btn btn-success" href="{{ route('activitys.show',[$activity]) }}" title="查看"><span class="glyphicon glyphicon-eye-open"></span></a>
-                    <a class="btn btn-warning" href="{{ route('activitys.edit',[$activity]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a> <form action="{{ route('activitys.destroy',[$activity]) }}" method="post" style="display: inline">
+                    @endcan
+                    @can('activity-edit')
+                    <a class="btn btn-warning" href="{{ route('activitys.edit',[$activity]) }}" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a>
+                    @endcan
+                    @can('activity-del')
+                        <form action="{{ route('activitys.destroy',[$activity]) }}" method="post" style="display: inline">
+
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
+
                         <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
-                    </form></td>
+                    </form>
+                    @endcan
+                </td>
             </tr>
         @endforeach
         <tr>
             <td colspan="6">
+                @can('activity-create')
                 <a href="{{ route('activitys.create') }}" class="btn btn-success btn-block">添加活动</a>
+                @endcan
             </td>
         </tr>
     </table>
