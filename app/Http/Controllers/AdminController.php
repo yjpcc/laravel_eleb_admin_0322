@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -14,15 +15,22 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+//        $this->middleware(['role:admin-admin']);
     }
 
     public function index()
     {
+//        if(!Auth::user()->can('admin-index')){
+//            return view('403');
+//        }
         $admins=Admin::paginate(5);
         return view('admin/index',compact('admins'));
     }
 
     public function show(Admin $admin){
+//        if(!Auth::user()->can('admin-show')){
+//            return view('403');
+//        }
         return view('admin/show',compact('admin'));
     }
 
@@ -34,6 +42,9 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+//        if(!Auth::user()->can('admin-create')){
+//            return view('403');
+//        }
 
         $this->validate($request, [
             'name' =>'required|unique:admins',
@@ -53,6 +64,9 @@ class AdminController extends Controller
         ]);
 
         $data = $request->all();
+        if(!$request->icon){
+            unset($data['icon']);
+        }
         $data['password']=bcrypt($request->password);
 
         $admin=Admin::create($data);

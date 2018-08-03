@@ -14,7 +14,8 @@
                             <option value="0" {{ $status==0?'selected':'' }}>全部</option>
                             <option value="1" {{ $status==1?'selected':'' }}>未开始</option>
                             <option value="2" {{ $status==2?'selected':'' }}>进行中</option>
-                            <option value="3" {{ $status==3?'selected':'' }}>已开奖</option>
+                            <option value="3" {{ $status==3?'selected':'' }}>已结束</option>
+                            <option value="4" {{ $status==4?'selected':'' }}>已开奖</option>
                     </select>
                     <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
@@ -42,7 +43,7 @@
                 <td>{{ $event->signup_end }}</td>
                 <td>{{ $event->prize_date }}</td>
                 <td>{{ $event->signup_num }}</td>
-                <td><sapn  class="btn-sm {{ $event->is_prize?'btn-waring':'btn-success' }}">{{ $event->is_prize?'已开奖':'未开奖' }}</sapn></td>
+                <td><sapn  class="btn-sm {{ $event->is_prize?'btn-warning':'btn-success' }}">{{ $event->is_prize?'已开奖':'未开奖' }}</sapn></td>
                 <td>
                     @can('event-show')
                     <a class="btn btn-success" href="{{ route('events.show',[$event]) }}" title="查看"><span class="glyphicon glyphicon-eye-open"></span></a>
@@ -54,12 +55,15 @@
                         <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
                     </form>
                     @endcan
+                        @if(!$event->is_prize)
+                        <a href="{{ route('eventprizes.create',['id'=>$event->id]) }}" class="btn btn-success">添加奖品</a>
+                            @endif
                 </td>
             </tr>
         @endforeach
         @can('event-create')
         <tr>
-            <td colspan="8">
+            <td colspan="9">
                 <a href="{{ route('events.create') }}" class="btn btn-success btn-block">添加活动</a>
             </td>
         </tr>

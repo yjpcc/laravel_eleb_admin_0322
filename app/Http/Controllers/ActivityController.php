@@ -33,6 +33,7 @@ class ActivityController extends Controller
 
     public function show(Activity $activity)
     {
+        dd($activity);
         return view('activity/show', compact('activity'));
     }
 

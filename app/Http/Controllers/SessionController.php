@@ -20,6 +20,9 @@ class SessionController extends Controller
 //    }
 
     public function login(){
+        if(Auth::user()){
+            return view('home');
+        }
         return view('session/login');
     }
 
@@ -37,7 +40,7 @@ class SessionController extends Controller
             'captcha.captcha' => '验证码错误',
         ]);
         if(Auth::attempt(['name'=>$request->name,'password'=>$request->password],$request->remember)){
-            return redirect()->route('admins.index')->with('success','登录成功');
+            return redirect()->route('home')->with('success','登录成功');
         }else{
             return back()->with('danger','用户名或密码错误')->withInput();
         }

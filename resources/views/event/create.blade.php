@@ -55,7 +55,7 @@
             </script>
 
             <!-- 编辑器容器 -->
-            <script id="container" name="content" type="text/plain">{{ old('content') }}</script>
+            <script id="container" name="content" type="text/plain">{!! old('content') !!}</script>
         </div>
     </div>
 

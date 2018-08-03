@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Shop;
 use App\Model\ShopCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -80,8 +81,12 @@ class ShopCategoryController extends Controller
     public function destroy(ShopCategory $shopcategory)
     {
         //$this->authorize('update',$shopcategory);
-        $shopcategory->delete();
-        session()->flash("success", "删除成功");
+        if(Shop::where(['shop_category_id'=>$shopcategory->id])->count()>0){
+            session()->flash("success", "该分类有商家不能删除");
+        }else{
+            $shopcategory->delete();
+            session()->flash("success", "删除成功");
+        }
         return redirect()->route('shopcategorys.index');
     }
 }

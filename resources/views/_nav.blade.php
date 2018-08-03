@@ -9,58 +9,26 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">风起天澜</a>
-            {{--<img src="icon.jpg" width="50" class="img-circle">--}}
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           @auth
             <ul class="nav navbar-nav">
-                {{--<li><a href="{{ route('articles.index') }}">文章列表</a></li>--}}
-                <li><a href=""><span class="glyphicon glyphicon-home"></span>主页 <span class="sr-only">(current)</span></a></li>
+                {!! \App\Model\Nav::navHtml() !!}
+                {{--@foreach(\App\Model\Nav::where('pid',0)->get() as $nav)--}}
+                    {{--@can($nav->permission->name)--}}
                 {{--<li class="dropdown">--}}
-                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="--}}
-{{--glyphicon glyphicon-list-alt"></span> 商品管理 <span class="caret"></span></a>--}}
-                    {{--<ul class="dropdown-menu">--}}
-                        {{--<li><a href="">商品列表</a></li>--}}
-                    {{--</ul>--}}
+                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $nav->name }} <span class="caret"></span></a>--}}
+                     {{--<ul class="dropdown-menu">--}}
+                         {{--@foreach(\App\Model\Nav::where('pid',$nav->id)->get() as $row)--}}
+                             {{--@can($row->permission->name)--}}
+                        {{--<li><a href="{{ route( $row->url ) }}">{{ $row->name }}</a></li>--}}
+                             {{--@endcan--}}
+                         {{--@endforeach--}}
+                     {{--</ul>--}}
                 {{--</li>--}}
-                {{--<li><a href="{{ route('shops.index') }}">商家管理</a></li>--}}
-                {{--<li><a href="{{ route('shopusers.index') }}">商户账号管理</a></li>--}}
-                {{--<li><a href="{{ route('shopcategorys.index') }}">商家分类</a></li>--}}
-                <li><a href="{{ route('members.index') }}">会员管理</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家统计 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li><a href="{{ route('orders.count') }}">订单统计</a></li>
-                <li><a href="">菜品销量</a></li>
-                </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('shops.index') }}">商家列表</a></li>
-                        <li><a href="{{ route('shopusers.index') }}">商户账号列表</a></li>
-                        <li><a href="{{ route('shopcategorys.index') }}">商家分类列表</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RBAC <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('permissions.index') }}">权限列表</a></li>
-                        <li><a href="{{ route('roles.index') }}">角色列表</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ route('admins.index') }}">平台账号管理</a></li>
-                <li><a href="{{ route('activitys.index') }}">活动管理</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">抽奖管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('events.index') }}">抽奖活动列表</a></li>
-                        <li><a href="{{ route('eventprizes.index') }}">抽奖奖品管理</a></li>
-                        <li><a href="{{ route('eventmembers.index') }}">活动报名列表</a></li>
-                    </ul>
-                </li>
+                {{--@endcan--}}
+                {{--@endforeach--}}
             </ul>
             @endauth
             <ul class="nav navbar-nav navbar-right">

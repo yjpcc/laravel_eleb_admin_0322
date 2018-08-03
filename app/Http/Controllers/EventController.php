@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Event;
+use App\Model\EventMember;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -16,14 +17,17 @@ class EventController extends Controller
     {
         $status=$request->status;
         if($status==1){
-            $events=event::where('start_time','>',date('Y-m-d H:i:s'))
+            $events=event::where('signup_start','>',date('Y-m-d H:i:s'))
                 ->paginate(10);
         }elseif ($status==2){
-            $events=event::where('start_time','<=',date('Y-m-d H:i:s'))
-                ->where('end_time','>=',date('Y-m-d H:i:s'))
+            $events=event::where('signup_start','<=',date('Y-m-d H:i:s'))
+                ->where('signup_end','>=',date('Y-m-d H:i:s'))
                 ->paginate(10);
         }elseif($status==3){
-            $events=event::where('end_time','<',date('Y-m-d H:i:s'))
+            $events=event::where('signup_end','<',date('Y-m-d H:i:s'))
+                ->paginate(10);
+        }elseif($status==4){
+            $events=event::where('is_prize',1)
                 ->paginate(10);
         }else{
             $events=event::paginate(10);
@@ -33,7 +37,8 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        return view('event/show', compact('event'));
+        $signup_sum=EventMember::where('events_id',$event->id)->count();
+        return view('event/show', compact('event','signup_sum'));
     }
 
     public function create()
@@ -80,7 +85,7 @@ class EventController extends Controller
         //  $this->authorize('update',$event);
         $this->validate($request, [
             'title' => 'required',
-            'signup_start'=>'required|after:now',
+            'signup_start'=>'required',
             'signup_end'=>'required|after:signup_start',
             'prize_date'=>'required|after:signup_end',
             'signup_num'=>'required|regex:/^\d/',
@@ -88,7 +93,6 @@ class EventController extends Controller
         ], [
             'title.required' => '名字不能为空',
             'signup_start.required' => '开始时间不能为空',
-            'signup_start.after' => '开始时间不能小于当前时间',
             'signup_end.required' => '结束时间不能为空',
             'signup_end.after' => '结束时间不能小于开始时间',
             'prize_date.required' => '开奖日期不能为空',

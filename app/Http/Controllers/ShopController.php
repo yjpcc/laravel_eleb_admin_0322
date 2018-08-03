@@ -169,6 +169,12 @@ class ShopController extends Controller
             if($request->check==1){
                 $shop->update(['status'=>!$shop->status]);
                 $shop->shop_user->update(['status'=>1]);
+                $_SERVER['email']=ShopUser::where('shop_id',$shop->id)->first()->email;
+                \Illuminate\Support\Facades\Mail::send('email', ['user'=>'1'], function ($message) {
+                    $message->from('18202840880@163.com', '饿了吧通知');
+                    $message->to([$_SERVER['email']])->subject('审核通过');
+                });
+
             }elseif ($request->check==-1){
                 $shop->update(['status'=>-1]);
                 $shop->shop_user->update(['status'=>0]);
