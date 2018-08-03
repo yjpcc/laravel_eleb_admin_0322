@@ -88,6 +88,9 @@ class MemberController extends Controller
 
 
         $data = $request->all();
+        if(!$request->member_img){
+            unset($data['member_img']);
+        }
         $member->update($data);
 
         return redirect()->route('members.index')->with("success", "修改成功");
