@@ -88,8 +88,8 @@ class MemberController extends Controller
 
 
         $data = $request->all();
-        if(!$request->member_img){
-            unset($data['member_img']);
+        if(!$request->members_img){
+            unset($data['members_img']);
         }
         $member->update($data);
 
