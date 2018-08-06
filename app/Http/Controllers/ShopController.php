@@ -86,6 +86,8 @@ class ShopController extends Controller
                 DB::commit();
                 session()->flash("success", "添加成功");
                 return redirect()->route('shops.index');
+                Redis::del('shop');
+                Redis::del('shops');
             }catch (\Exception $e){
                 DB::rollBack();
                 session()->flash("success", "添加失败");
@@ -150,7 +152,8 @@ class ShopController extends Controller
             $data['shop_rating']=$request->shop_rating;
         }
             $shop->update($data);
-
+        Redis::del('shop');
+        Redis::del('shops');
             return redirect()->route('shops.index')->with("success", "修改成功");
     }
 
@@ -159,6 +162,8 @@ class ShopController extends Controller
         //$this->authorize('update',$shop);
         $shop->update(['status'=>-1]);
         $shop->shop_user->update(['status'=>0]);
+        Redis::del('shops');
+        Redis::del('shop');
         return redirect()->route('shops.index')->with("success", "删除成功");
     }
 
@@ -174,6 +179,7 @@ class ShopController extends Controller
                     $message->from('18202840880@163.com', '饿了吧通知');
                     $message->to([$_SERVER['email']])->subject('审核通过');
                 });
+                Redis::del('shops');
 
             }elseif ($request->check==-1){
                 $shop->update(['status'=>-1]);
@@ -184,6 +190,8 @@ class ShopController extends Controller
             }else{
                 $shop->update(['status'=>-1]);
                 $shop->shop_user->update(['status'=>0]);
+                Redis::del('shops');
+                Redis::del('shop');
             }
             DB::commit();
             return redirect()->route('shops.index')->with("success", "商家 ".$shop->shop_name." 审核成功");

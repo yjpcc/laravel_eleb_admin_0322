@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ActivityController extends Controller
 {
@@ -33,7 +34,6 @@ class ActivityController extends Controller
 
     public function show(Activity $activity)
     {
-        dd($activity);
         return view('activity/show', compact('activity'));
     }
 
@@ -63,6 +63,8 @@ class ActivityController extends Controller
 
         $data = $request->all();
         Activity::create($data);
+        Redis::del('activity');
+        Redis::del('activity_show');
         return redirect()->route('activitys.index')->with("success", "添加成功");
     }
 
@@ -79,18 +81,19 @@ class ActivityController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'content'=>'required',
-            'start_time'=>'required|after:now',
+            'start_time'=>'required',
             'end_time'=>'required|after:start_time',
         ], [
             'title.required' => '名字不能为空',
             'content.required' => '描述不能为空',
             'start_time.required' => '开始时间不能为空',
-            'start_time.after' => '开始时间不能小于当前时间',
             'end_time.required' => '结束时间不能为空',
             'end_time.after' => '结束时间不能小于开始时间',
         ]);
         $data=$request->all();
         $activity->update($data);
+        Redis::del('activity');
+        Redis::del('activity_show');
         return redirect()->route('activitys.index')->with("success", "修改成功");
     }
 
@@ -98,6 +101,8 @@ class ActivityController extends Controller
     {
         //$this->authorize('update',$activity);
         $activity->delete();
+        Redis::del('activity');
+        Redis::del('activity_show');
         return redirect()->route('activitys.index')->with("success", "删除成功");
     }
 }
