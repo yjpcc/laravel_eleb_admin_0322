@@ -27,6 +27,7 @@
             {{--</form>--}}
         </div>
     </div>
+    <h3><a href="{{ route('activitysList') }}">生成静态页面</a></h3>
     <table class="table table-striped table-hover table-bordered table-condensed">
         <tr>
             <th>ID</th>

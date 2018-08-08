@@ -45,6 +45,7 @@ Route::delete('logout', 'SessionController@logout')->name('logout');
 
 //活动管理
 Route::resource('/activitys','ActivityController')->middleware(['role:activity-admin']);
+Route::get('/activitysList','ActivityController@create_list')->name('activitysList');
 
 //会员管理
 Route::resource('/members','MemberController')->middleware(['role:member-admin']);

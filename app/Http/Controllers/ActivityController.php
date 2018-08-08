@@ -105,4 +105,19 @@ class ActivityController extends Controller
         Redis::del('activity_show');
         return redirect()->route('activitys.index')->with("success", "删除成功");
     }
+
+    public function create_list(){
+        $activitys = Activity::where('end_time', '>', date('Y-m-d H:i:s'))
+            ->orderBy('start_time','desc')
+            ->paginate(10);
+        $content=view('activity/list',compact('activitys'));
+        file_put_contents('html/activity.html', $content);
+
+        foreach ($activitys as $activity){
+            $content = view('activity/activityshow', compact('activity'));
+            file_put_contents('html/'.$activity->id . '.html', $content);
+        }
+
+        return redirect()->route('activitys.index')->with("success", "静态页面生成成功");
+    }
 }
